@@ -32,7 +32,7 @@ public class FoodContainerItem extends Item {
     private int nslots;
 
     public FoodContainerItem(int nslots, String displayName) {
-        super(new Properties().stacksTo(1).setNoRepair());
+        super(new Properties());
 
         this.displayName = displayName;
         this.nslots = nslots;
@@ -45,8 +45,6 @@ public class FoodContainerItem extends Item {
         for (int i = 0 ; i < size ; i++) {
             Item item = container.getItem(i).getItem();
             if (item instanceof FoodContainerItem foodContainerItem) {
-                // --- コンテナアイテム使ったクラフトの場合
-                // --- そのアイテムの中身を、新しいアイテムの中身にコピーする
                 ItemStackHandler handler = getInventory(event.getCrafting());
                 ItemStackHandler oldHander = getInventory(container.getItem(i));
                 for (int j = 0 ; j < foodContainerItem.nslots ; j++)

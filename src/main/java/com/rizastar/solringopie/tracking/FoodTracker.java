@@ -53,7 +53,7 @@ public final class FoodTracker {
 		Item eatenItem = Items.CAKE;
 		// If Farmer's Delight is installed, replace "cake" with FD's "cake slice"
 		if (ModList.get().isLoaded("farmersdelight")) {
-			eatenItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("farmersdelight:cake_slice"));
+			eatenItem = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse("farmersdelight:cake_slice"));
 		}
 		ItemStack eatenItemStack = new ItemStack(eatenItem);
 

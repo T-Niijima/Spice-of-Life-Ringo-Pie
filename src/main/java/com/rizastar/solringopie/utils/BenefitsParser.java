@@ -1,6 +1,7 @@
 package com.rizastar.solringopie.utils;
 
 import com.rizastar.solringopie.SOLRingoPie;
+import com.rizastar.solringopie.SOLRingoPieCommonConfig;
 import com.rizastar.solringopie.tracking.benefits.AttributeBenefit;
 import com.rizastar.solringopie.tracking.benefits.Benefit;
 import com.rizastar.solringopie.tracking.benefits.EffectBenefit;
@@ -49,6 +50,7 @@ public class BenefitsParser {
                 }
 
                 String benefitName = benefitArgs[1];
+//                SOLRingoPie.LOGGER.info("Benefit[" + benefitArgs[1] + "]set. value:" + benefitArgs[2] + ".");
                 double benefitValue = 0;
                 if (len > 2) {
                     benefitValue = Double.parseDouble(benefitArgs[2]);

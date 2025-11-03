@@ -30,13 +30,13 @@ public final class SOLRingoPieItems
 	public static void registerItems(RegisterEvent event) {
 		event.register(ForgeRegistries.Keys.ITEMS,
 				helper -> {
-					helper.register(new ResourceLocation(SOLRingoPie.MOD_ID, "food_book"),
+					helper.register(ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "food_book"),
 							new FoodBookItem());
-					helper.register(new ResourceLocation(SOLRingoPie.MOD_ID, "lunchbox"),
+					helper.register(ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "lunchbox"),
 							new FoodContainerItem(9,"lunchbox"));
-					helper.register(new ResourceLocation(SOLRingoPie.MOD_ID, "lunchbag"),
+					helper.register(ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "lunchbag"),
 							new FoodContainerItem(5,"lunchbag"));
-					helper.register(new ResourceLocation(SOLRingoPie.MOD_ID, "golden_lunchbox"),
+					helper.register(ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "golden_lunchbox"),
 							new FoodContainerItem(14,"golden_lunchbox"));
 				});
 	}

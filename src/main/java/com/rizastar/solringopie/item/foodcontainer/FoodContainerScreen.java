@@ -29,7 +29,7 @@ public class FoodContainerScreen extends AbstractContainerScreen<FoodContainer> 
 
     @Override
     protected void renderBg(GuiGraphics matrices, float partialTicks, int x, int y) {
-        this.drawBackground(matrices, new ResourceLocation(SOLRingoPie.MOD_ID, "textures/gui/inventory.png"));
+        this.drawBackground(matrices, ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "textures/gui/inventory.png"));
         this.menu.containerItem.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
             int slotsPerRow = h.getSlots();
             if (h.getSlots() > 9) {
@@ -68,6 +68,6 @@ public class FoodContainerScreen extends AbstractContainerScreen<FoodContainer> 
     }
 
     protected void drawSlot(GuiGraphics ms, int x, int y) {
-        drawSlot(ms, x, y, new ResourceLocation(SOLRingoPie.MOD_ID, "textures/gui/slot.png"), 18);
+        drawSlot(ms, x, y, ResourceLocation.fromNamespaceAndPath(SOLRingoPie.MOD_ID, "textures/gui/slot.png"), 18);
     }
 }

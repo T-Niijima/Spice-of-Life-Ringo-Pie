@@ -11,7 +11,7 @@ authors = "T-Niijima"
 
 [[mods]]
 	modId = "solringopie"
-	version = "${file.jarVersion}"
+	version = "2.3.6"
 	displayName = "Spice of Life: Ringo Pie Edition"
 	description = '''
 	A version of Spice of Life Apple Pie Edition with minor modifications and Japanese language support.

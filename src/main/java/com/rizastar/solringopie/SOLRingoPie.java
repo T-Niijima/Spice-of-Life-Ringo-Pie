@@ -30,8 +30,8 @@ public final class SOLRingoPie
 	
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-	public static boolean HasFarmersDelight() { return ModList.get().isLoaded("farmersdelight"); }
-	public static boolean HasPamsHarvestcraft() { return ModList.get().isLoaded("pamhc2foodcore"); }
+//	public static boolean HasFarmersDelight() { return ModList.get().isLoaded("farmersdelight"); }
+//	public static boolean HasPamsHarvestcraft() { return ModList.get().isLoaded("pamhc2foodcore"); }
 
 	private static final String PROTOCOL_VERSION = "1.0";
 	public static SimpleChannel channel = NetworkRegistry.ChannelBuilder
@@ -40,9 +40,17 @@ public final class SOLRingoPie
 		.serverAcceptedVersions(PROTOCOL_VERSION::equals)
 		.networkProtocolVersion(() -> PROTOCOL_VERSION)
 		.simpleChannel();
+
+	public static IEventBus modEventBus;
+
+	public SOLRingoPie(FMLJavaModLoadingContext context) {
+		modEventBus = context.getModEventBus();
+		SOLRingoPieConfig.setUp(context);
+		ContainerScreenRegistry.MENU_TYPES.register(modEventBus);
+	}
 	
 	public static ResourceLocation resourceLocation(String path) {
-		return new ResourceLocation(MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	@SubscribeEvent
@@ -59,7 +67,7 @@ public final class SOLRingoPie
 				.consumerMainThread(ConfigMessage::handle)
 				.add();
 
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(SOLRingoPieItems::registerTabs);
+		modEventBus.addListener(SOLRingoPieItems::registerTabs);
 
 	}
 
@@ -68,8 +76,6 @@ public final class SOLRingoPie
 		event.enqueueWork(() -> { MenuScreens.register(ContainerScreenRegistry.FOOD_CONTAINER.get(), FoodContainerScreen::new); });
 	}
 
-	public SOLRingoPie() {
-		SOLRingoPieConfig.setUp();
-		ContainerScreenRegistry.MENU_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-	}
+//	public SOLRingoPie() {
+//	}
 }

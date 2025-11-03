@@ -71,7 +71,7 @@ public final class EffectBenefit extends Benefit{
     private void createEffect() {
         IForgeRegistry<MobEffect> registry = ForgeRegistries.MOB_EFFECTS;
         try {
-            effect = registry.getValue(new ResourceLocation(name));
+            effect = registry.getValue(ResourceLocation.parse(name));
         }
         catch (ResourceLocationException e) {
             markInvalid();

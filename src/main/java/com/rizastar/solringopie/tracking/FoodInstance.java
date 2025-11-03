@@ -17,7 +17,7 @@ public final class FoodInstance {
 	
 	@Nullable
 	public static FoodInstance decode(String encoded) {
-		ResourceLocation name = new ResourceLocation(encoded);
+		ResourceLocation name = ResourceLocation.parse(encoded);
 		
 		// TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
 		Item item = ForgeRegistries.ITEMS.getValue(name);

@@ -14,6 +14,8 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.tuple.Pair;
@@ -47,8 +49,8 @@ public final class SOLRingoPieConfig
 		CLIENT_SPEC = specPair.getRight();
 	}
 	
-	public static void setUp() {
-		ModLoadingContext context = ModLoadingContext.get();
+	public static void setUp(FMLJavaModLoadingContext context) {
+//		ModLoadingContext context = ModLoadingContext.get();
 		context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 	}
@@ -137,61 +139,48 @@ public final class SOLRingoPieConfig
 		public final ConfigValue<List<? extends String>> complexityUnparsed;
 
 		Server(Builder builder) {
+
 			builder.push("Benefits");
 
-			thresholds = builder
-					.translation(localizationPath("thresholds"))
+            int length = SOLRingoPieCommonConfig.thresholds.length;
+            ArrayList<Double> listThresholds = new ArrayList<>(Arrays.asList(SOLRingoPieCommonConfig.thresholds).subList(0, length));
+
+            ArrayList<String> listBenefits = new ArrayList<>(Arrays.asList(SOLRingoPieCommonConfig.benefitsUnparsed).subList(0, length));
+
+			thresholds = builder.translation(localizationPath("thresholds"))
 					.comment(" A list of diversity value thresholds, in ascending order. When the player's food diversity reaches a threshold,\n"
-							+" they will get the benefits associated with that threshold.\n"
-							+"\n")
-					.defineList("thresholds", Lists.newArrayList(2.0, 5.0, 7.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0), e -> e instanceof Double);
+							+ " they will get the benefits associated with that threshold.\n"
+							+ "\n")
+					.defineList("thresholds", listThresholds, e -> e instanceof Double);
 
 			benefitsUnparsed = builder
 					.translation(localizationPath("benefits_unparsed"))
 					.comment(" \n Define custom benefits here. Each entry in the list corresponds to a benefit that will be obtained\n"
-							+" at the corresponding diversity threshold defined the list above. For example, the first entry in\n"
-							+" this list will be applied when the player's food diversity reaches the number in the first entry in\n"
-							+" the threshold list above.\n"
-							+" A benefit can also be marked as a detriment. In that case, its activation is reversed.\n"
-							+" A detriment is applied while the player has less diversity than the threshold,\n"
-							+" and will be removed when the threshold is reached.\n"
-							+" Each benefit is a string with the following form: [+/-][type],[registry name],[value] (without the brackets)\n"
-							+" A leading plus (or the of a symbol) denotes a benefit, while a minus denotes a detriment.\n"
-							+" The type can either be 'attribute' for attribute modifiers or 'effect' for potion effects\n"
-							+" Registry names for common vanila attributes are \n"
-							+" generic.max_health, generic.knockback_resistance, generic.movement_speed, generic.luck, \n"
-							+" generic.attack_damage, generic.attack_speed, generic.armor, generic.armor_toughness \n"
-							+" The value of attributes is the numerical number that will be added to that attribute\n"
-							+" Use a negative number for subtraction. Multiplicative modifiers are not supported.\n"
-							+" For potion effects, the value is an integer and is the potion effect amplifier. Note\n"
-							+" that the amplifier is 0 indexed, so minecraft:strength,1 corresponds to Strength II\n"
-							+"\n"
-							+" To add multiple benefits to the same threshold, separate them by a semicolon ';'\n"
-							+" Make sure that you have NO SPACES!\n"
-							+" As an example, 'attribute,generic.max_health,2;effect,strength,1' will give both +2 max hp\n"
-							+" and Strength II at the corresponding threshold.\n"
-							+" 'attribute,generic.attack_damage,1;-effect,slowness,0' will give +1 attack damage at the corresponding threshold\n"
-							+" and Slowness I below the corresponding threshold.\n"
-							+"\n")
-					.defineList("benefitsUnparsed", Lists.newArrayList(
-							"effect,speed,0",
-							"attribute,generic.max_health,1",
-							"attribute,generic.max_health,1;effect,haste,0",
-							"attribute,generic.max_health,1;effect,strength,0",
-							"attribute,generic.max_health,1;attribute,generic.armor_toughness,2",
-							"attribute,generic.max_health,1;effect,regeneration,0",
-							"attribute,generic.max_health,1;effect,generic.movement_speed,1",
-							"attribute,generic.max_health,1;effect,strength,0",
-							"attribute,generic.max_health,1;effect,luck,0",
-							"attribute,generic.max_health,1;attribute,generic.knockback_resistance,1",
-							"attribute,generic.max_health,1;attribute,generic.movement_speed,2",
-							"attribute,generic.max_health,1;attribute,generic.armor_toughness,2",
-							"attribute,generic.max_health,1;effect,haste,1",
-							"attribute,generic.max_health,1;effect,strength,1",
-							"attribute,generic.max_health,1;attribute,generic.armor_toughness,2",
-							"attribute,generic.max_health,1;effect,strength,2",
-							"attribute,generic.max_health,1;effect,luck,1"),
-							e -> e instanceof String);
+							+ " at the corresponding diversity threshold defined the list above. For example, the first entry in\n"
+							+ " this list will be applied when the player's food diversity reaches the number in the first entry in\n"
+							+ " the threshold list above.\n"
+							+ " A benefit can also be marked as a detriment. In that case, its activation is reversed.\n"
+							+ " A detriment is applied while the player has less diversity than the threshold,\n"
+							+ " and will be removed when the threshold is reached.\n"
+							+ " Each benefit is a string with the following form: [+/-][type],[registry name],[value] (without the brackets)\n"
+							+ " A leading plus (or the of a symbol) denotes a benefit, while a minus denotes a detriment.\n"
+							+ " The type can either be 'attribute' for attribute modifiers or 'effect' for potion effects\n"
+							+ " Registry names for common vanila attributes are \n"
+							+ " generic.max_health, generic.knockback_resistance, generic.movement_speed, generic.luck, \n"
+							+ " generic.attack_damage, generic.attack_speed, generic.armor, generic.armor_toughness \n"
+							+ " The value of attributes is the numerical number that will be added to that attribute\n"
+							+ " Use a negative number for subtraction. Multiplicative modifiers are not supported.\n"
+							+ " For potion effects, the value is an integer and is the potion effect amplifier. Note\n"
+							+ " that the amplifier is 0 indexed, so minecraft:strength,1 corresponds to Strength II\n"
+							+ "\n"
+							+ " To add multiple benefits to the same threshold, separate them by a semicolon ';'\n"
+							+ " Make sure that you have NO SPACES!\n"
+							+ " As an example, 'attribute,generic.max_health,2;effect,strength,1' will give both +2 max hp\n"
+							+ " and Strength II at the corresponding threshold.\n"
+							+ " 'attribute,generic.attack_damage,1;-effect,slowness,0' will give +1 attack damage at the corresponding threshold\n"
+							+ " and Slowness I below the corresponding threshold.\n"
+							+ "\n")
+					.defineList("benefitsUnparsed", listBenefits, e -> e instanceof String);
 
 			minFoodsToActivate = builder
 					.translation(localizationPath("min_foods_to_activate"))
@@ -392,4 +381,5 @@ public final class SOLRingoPieConfig
 		}
 		return false;
 	}
+
 }

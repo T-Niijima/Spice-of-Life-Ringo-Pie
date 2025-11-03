@@ -37,7 +37,7 @@ public class ComplexityParser {
 
             Item item;
             try {
-                item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(foodString));
+                item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(foodString));
             }
             catch (ResourceLocationException e) {
                 SOLRingoPie.LOGGER.warn("Invalid item name: " + foodString);

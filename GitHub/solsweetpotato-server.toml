@@ -26,7 +26,14 @@
 	# and Strength II at the corresponding threshold.
 	#
 	#
-	benefitsUnparsed = ["attribute,generic.max_health,2", "attribute,generic.max_health,2;effect,strength,0", "attribute,generic.max_health,2;effect,regeneration,0", "attribute,generic.max_health,2;effect,speed,0", "attribute,generic.max_health,2;attribute,generic.armor_toughness,2", "attribute,generic.armor_toughness,2;effect,strength,1", "attribute,generic.max_health,4", "attribute,generic.max_health,6"]
+	benefitsUnparsed = ["attribute,generic.max_health,2",
+		"attribute,generic.max_health,2;effect,strength,0",
+		"attribute,generic.max_health,2;effect,regeneration,0",
+		"attribute,generic.max_health,2;effect,speed,0",
+		"attribute,generic.max_health,2;attribute,generic.armor_toughness,2",
+		"attribute,generic.armor_toughness,2;effect,strength,1",
+		"attribute,generic.max_health,4",
+		"attribute,generic.max_health,6"]
 
 [Filtering]
 	# Foods in this list won't contribute to food diversity.
@@ -78,7 +85,7 @@
 	#
 	#
 	#Range: 0.0 ~ 100.0
-	defaultContribution = 1.0
+	edefaultContribution = 1.0
 	#
 	# How many meals in the past should the diversity penalty stop from.
 	# **Needs to be less than queueSize and greater than startDecay!!!**

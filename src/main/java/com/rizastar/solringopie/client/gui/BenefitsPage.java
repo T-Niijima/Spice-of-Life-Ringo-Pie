@@ -82,7 +82,7 @@ public class BenefitsPage extends Page {
     private String getAttributeName(String name){
         Attribute attribute;
         try {
-            attribute = ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation(name));
+            attribute = ForgeRegistries.ATTRIBUTES.getValue(ResourceLocation.parse(name));
         }
         catch (ResourceLocationException e) {
             return "Invalid: " + name;
@@ -99,7 +99,7 @@ public class BenefitsPage extends Page {
         MobEffect effect;
         IForgeRegistry<MobEffect> registry = ForgeRegistries.MOB_EFFECTS;
         try {
-            effect = registry.getValue(new ResourceLocation(name));
+            effect = registry.getValue(ResourceLocation.parse(name));
         }
         catch (ResourceLocationException e) {
             return "Invalid: " + name;

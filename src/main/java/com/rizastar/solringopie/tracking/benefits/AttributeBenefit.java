@@ -102,7 +102,7 @@ public final class AttributeBenefit extends Benefit {
 
     private void createAttribute() {
         try {
-            attribute = ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation(name));
+            attribute = ForgeRegistries.ATTRIBUTES.getValue(ResourceLocation.parse(name));
         }
         catch (ResourceLocationException e) {
             markInvalid();
